@@ -1,0 +1,6 @@
+[package]
+name = "advent_floor1"
+version = "0.1.0"
+authors = ["NTV"]
+
+[dependencies]
