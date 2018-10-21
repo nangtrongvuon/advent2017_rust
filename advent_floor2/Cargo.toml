@@ -1,0 +1,6 @@
+[package]
+name = "advent_floor2"
+version = "0.1.0"
+authors = ["Le Viet Hoang Dung <dungleviethoang@gmail.com>"]
+
+[dependencies]
