@@ -1,6 +1,6 @@
 fn main() {
     manhanttanDistance(361527);
-    fillSquares(2);
+    fillSquares(361527);
 }
 
 fn manhanttanDistance(input: usize) {
@@ -38,34 +38,33 @@ fn fillSquares(input: usize) {
     while current_number < input as i32 {
         // Move right by step
         for i in 0..step {
-            current_number = sumNeighbours(&current_values.last().unwrap(), &current_values);
             x += 1;
+            current_number = sumNeighbours(&[x, y, 0], &current_values);
             current_values.push([x, y, current_number]);
         }
 
         // Move up by step
         for i in 0..step {
-            current_number = sumNeighbours(&current_values.last().unwrap(), &current_values);
             y += 1;
-
+            current_number = sumNeighbours(&[x, y, 0], &current_values);
             current_values.push([x, y, current_number]);
         }           
 
         // Move left by step + 1
         for i in 0..(step + 1) {
-            current_number = sumNeighbours(&current_values.last().unwrap(), &current_values);
             x -= 1;
-
+            current_number = sumNeighbours(&[x, y, 0], &current_values);
             current_values.push([x, y, current_number]);
         }
 
         // Move down by step + 1 
         for i in 0..(step + 1) {
-            current_number = sumNeighbours(&current_values.last().unwrap(), &current_values);
             y -= 1;
-
+            current_number = sumNeighbours(&[x, y, 0], &current_values);
             current_values.push([x, y, current_number]);
         }
+
+        step += 2;
     }
 
     println!("{:?}", current_values);
@@ -75,22 +74,17 @@ fn sumNeighbours(input: &[i32; 3], current_values: &Vec<[i32; 3]>) -> i32 {
 
     let input_x = input[0];
     let input_y = input[1];
-
-    let mut result = 1;
+    let mut result = 0;
 
     for value in current_values {
         let x = value[0];
         let y = value[1];
         let num = value[2];
 
-        println!("input: {:?}", input);
-        println!("{:?} {:?}", x - input_x, y - input_y);
-
-        if (x - input_x).abs() == 1 || (y - input_y).abs() == 1 {
-            println!("num to add: {:?}", num);
+        if (input_x - x).abs() <= 1 && (input_y - y).abs() <= 1 {
             result += num;
         }
     }
-    println!("====");
+
     return result;
 }
